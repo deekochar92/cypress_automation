@@ -1,0 +1,13 @@
+{
+  "validUserName": "dkochar@amazon.com",
+  "validPassword": "MYbynder@2022",
+  "loginPageURL": "https://wave-trial.getbynder.com/login/",
+  "homePageURL": "https://wave-trial.getbynder.com/account/dashboard/",
+  "capthcaPageURL": "https://wave-trial.getbynder.com/verify/",
+  "forgotPassTextNL":"Wachtwoord vergeten?",
+  "forgotPassTextEN":"Lost password?",
+  "forgotPassTextFR":"Vous avez perdu votre mot de passe ?",
+  "forgotPassTextDE":"Passwort vergessen?",
+  "forgotPassTextIT":"Hai perso la password?",
+  "forgotPassTextES":"¿Has olvidado la contraseña?"
+}
