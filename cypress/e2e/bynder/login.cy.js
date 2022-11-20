@@ -23,22 +23,29 @@ describe('Login Test Suite', () => {
 
     context('Positive Cases', () => {
 
-        it.only('SCENARIO: Login with valid credentials' +'\n'+
-                    'GIVEN: User is on the login screen' +'\n'+
-                    'WHEN: User enters valid credentials' +'\n'+ 
-                    'AND: User clicks on submit button' +'\n'+
-                    'THEN: User is redirected to DashboardPage', () => {
+        it('SCENARIO: Login with valid credentials' +'\n'+
+                'GIVEN: User is on the login screen' +'\n'+
+                'WHEN: User enters valid credentials' +'\n'+ 
+                'AND: User clicks on submit button' +'\n'+
+                'THEN: User is redirected to Dashboard page', () => {
            loginpage.login(userdata.validUserName,userdata.validPassword)
             cy.url().should('eq', userdata.homePageURL)
         })
 
-        it('Verifies successful logout', () => {
+        it('SCENARIO: Logout from profile dropdown' +'\n'+
+                'GIVEN: User is on the Dashboard page' +'\n'+
+                'WHEN: User clicks on profile dropdown menu' +'\n'+ 
+                'AND: User clicks on logout button' +'\n'+
+                'THEN: User is redirected to Login screen', () => {
             loginpage.login(userdata.validUserName,userdata.validPassword)
             homepage.logout()
             cy.url().should('eq', userdata.loginPageURL)
         })
 
-        it('Verifies user is directed to captcha page after 4 unsuccesful login attempts', () => {
+        it('SCENARIO: User redirects to captcha verification page' +'\n'+
+                'GIVEN: User is on the Login screen' +'\n'+
+                'WHEN: User enters non-existing credentials 4 times' +'\n'+ 
+                'THEN: User is redirected to captcha verification screen', () => {
 
             let user = faker.internet.email()
             let pass = faker.internet.password()
@@ -55,25 +62,44 @@ describe('Login Test Suite', () => {
 
     context('Negative cases', () => {
 
-        it('Verifies Unsuccessful login with Invalid credentials', () => {
+        it('SCENARIO: Login with invalid credentials' +'\n'+
+                'GIVEN: User is on the Login screen' +'\n'+
+                'WHEN: User enters invalid credentials' +'\n'+ 
+                'AND: User clicks on submit button' +'\n'+
+                'THEN: User is not able to login' +'\n'+
+                'AND: User is shown an error message', () => {
             
             loginpage.login(faker.internet.email(),faker.internet.password())
             loginpage.verifyErrorText('You have entered an incorrect username or password.')
         })
 
-        it('Verifies Unsuccessful login with Blank Password', () => {
-            loginpage.setUserName(userdata.validUserName)
+        it('SCENARIO: Login without password ' +'\n'+
+                'GIVEN: User is on the Login screen' +'\n'+
+                'WHEN: User enters valid username' +'\n'+ 
+                'AND: User clicks on submit button' +'\n'+
+                'THEN: User is not able to login' +'\n'+
+                'AND: User is shown an error message', () => {
+            loginpage.setUserName(faker.internet.email())
             loginpage.clickSubmit()
             loginpage.verifyErrorText('Please enter your password.')
         })
 
-        it('Verifies Unsuccessful login with Blank UserName', () => {
-            loginpage.setPassword(userdata.validPassword)
+        it('SCENARIO: Login without username ' +'\n'+
+                'GIVEN: User is on the Login screen' +'\n'+
+                'WHEN: User enters valid password' +'\n'+ 
+                'AND: User clicks on submit button' +'\n'+
+                'THEN: User is not able to login' +'\n'+
+                'AND: User is shown an error message', () => {
+            loginpage.setPassword(faker.internet.password())
             loginpage.clickSubmit()
             loginpage.verifyErrorText('Please enter your Username.')
         })
 
-        it('Verifies back button doest not redirect to dashboard', () => {
+        it('SCENARIO: Back button does not redirect to dashboard' +'\n'+
+                'GIVEN: User is on the Dashboard page' +'\n'+
+                'AND: User logs out' +'\n'+
+                'WHEN: User clicks the browser back button' +'\n'+ 
+                'THEN: User is redirected back to login screen', () => {
             loginpage.login(userdata.validUserName,userdata.validPassword)
             homepage.logout()
             cy.go('back')
@@ -83,14 +109,24 @@ describe('Login Test Suite', () => {
 
     context('Localisation Cases', () => {
 
-        it('check local Dutch', () => {
+
+        it('SCENARIO: Text changes to selected language-NL' +'\n'+
+                'GIVEN: User is on the login screen' +'\n'+
+                'WHEN: User clicks the language button' +'\n'+ 
+                'AND: User clicks on Nederlands' +'\n'+ 
+                'THEN: Text on login screen changes to NL', () => {
 
             loginpage.clickLanguageBtn()
             loginpage.selectLanguage(loginpage.languageNL)
             loginpage.getForgotPassText().then((text) => { expect(text).include(userdata.forgotPassTextNL) })
 
         })
-        it('check local English', () => {
+
+        it('SCENARIO: Text changes to selected language-EN' +'\n'+
+                'GIVEN: User is on the login screen' +'\n'+
+                'WHEN: User clicks the language button' +'\n'+ 
+                'AND: User clicks on English' +'\n'+ 
+                'THEN: Text on login screen changes to EN', () => {
 
             loginpage.clickLanguageBtn()
             loginpage.selectLanguage(loginpage.languageEN)
@@ -98,7 +134,11 @@ describe('Login Test Suite', () => {
 
         })
 
-        it('check local French', () => {
+        it('SCENARIO: Text changes to selected language-FR' +'\n'+
+                'GIVEN: User is on the login screen' +'\n'+
+                'WHEN: User clicks the language button' +'\n'+ 
+                'AND: User clicks on Francais' +'\n'+ 
+                'THEN: Text on login screen changes to FR', () => {
 
             loginpage.clickLanguageBtn()
             loginpage.selectLanguage(loginpage.languageFR)
@@ -106,7 +146,11 @@ describe('Login Test Suite', () => {
 
         })
 
-        it('check local Deutsch', () => {
+        it('SCENARIO: Text changes to selected language-DE' +'\n'+
+                'GIVEN: User is on the login screen' +'\n'+
+                'WHEN: User clicks the language button' +'\n'+ 
+                'AND: User clicks on Deutsch' +'\n'+ 
+                'THEN: Text on login screen changes to DE', () => {
 
             loginpage.clickLanguageBtn()
             loginpage.selectLanguage(loginpage.languageDE)
@@ -114,7 +158,11 @@ describe('Login Test Suite', () => {
 
         })
 
-        it('check local Italian', () => {
+        it('SCENARIO: Text changes to selected language-IT' +'\n'+
+                'GIVEN: User is on the login screen' +'\n'+
+                'WHEN: User clicks the language button' +'\n'+ 
+                'AND: User clicks on Italiano' +'\n'+ 
+                'THEN: Text on login screen changes to IT', () => {
 
             loginpage.clickLanguageBtn()
             loginpage.selectLanguage(loginpage.languageIT)
@@ -122,7 +170,11 @@ describe('Login Test Suite', () => {
 
         })
 
-        it('check local Spanish', () => {
+        it('SCENARIO: Text changes to selected language-ES' +'\n'+
+                'GIVEN: User is on the login screen' +'\n'+
+                'WHEN: User clicks the language button' +'\n'+ 
+                'AND: User clicks on Espanol' +'\n'+ 
+                'THEN: Text on login screen changes to ES', () => {
 
             loginpage.clickLanguageBtn()
             loginpage.selectLanguage(loginpage.languageES)

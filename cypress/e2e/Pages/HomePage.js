@@ -16,8 +16,8 @@ clickLogoutButton()
 
 logout()
 {
-this.clickProfileDropDown
-this.clickLogoutButton
+this.clickProfileDropDown()
+this.clickLogoutButton()
 }
 
 
