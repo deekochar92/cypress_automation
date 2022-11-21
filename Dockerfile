@@ -13,5 +13,3 @@ Copy ./cypress ./cypress
 Run npm install
 
 ENTRYPOINT ["npm","run","test"]
-
-CMD [""]

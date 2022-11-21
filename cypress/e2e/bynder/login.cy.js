@@ -34,10 +34,8 @@ describe('Login Test Suite', () => {
             let pass = faker.internet.password()
 
             for (let i = 0; i < 4; i++) 
-            {
-                
+            {               
             loginpage.login(user,pass)
-
             }
             cy.url().should('eq', userdata.capthcaPageURL)
         })
